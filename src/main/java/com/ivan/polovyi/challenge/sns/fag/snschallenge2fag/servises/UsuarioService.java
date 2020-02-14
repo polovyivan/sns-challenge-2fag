@@ -15,7 +15,7 @@ public class UsuarioService {
     @Autowired
     SecretKeyService secretKeyService;
 
-    private static final int SECRET_SIZE = 20;
+    private static final int SECRET_SIZE =10;
 
     private List<Usuario> usuarios = new ArrayList<>();
 
@@ -37,10 +37,10 @@ public class UsuarioService {
         return secretKeyService.generate(SECRET_SIZE);
     }
 
-    public String encodeSecretKey(byte[] bytes) {
-        // This Base32 encode may usually return a string with padding characters - '='.
-        // QR generator which is user (zxing) does not recognize strings containing symbols other than alphanumeric
-        // So just remove these redundant '=' padding symbols from resulting string
-        return new Base32().encodeToString(bytes).replace("=", "");
-    }
+//    public String encodeSecretKey(byte[] bytes) {
+//        // This Base32 encode may usually return a string with padding characters - '='.
+//        // QR generator which is user (zxing) does not recognize strings containing symbols other than alphanumeric
+//        // So just remove these redundant '=' padding symbols from resulting string
+//        return new Base32().encodeToString(bytes).replace("=", "");
+//    }
 }
