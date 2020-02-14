@@ -26,7 +26,7 @@ $("#btnLogin").click(function () {
 });
 
 $("#btnRegister").click(function () {
-    $.post("/user/register/" + $("#login").val() + "/" + $("#password").val(), function (data, status) {
+    $.post("/usuario/registrar/" + $("#login").val() + "/" + $("#password").val(), function (data, status) {
         if (status == 'success') {
             $("#tokenQr").attr("src", "https://zxing.org/w/chart?cht=qr&chs=250x250&chld=M&choe=UTF-8&chl=otpauth://totp/2FaExample.com?secret=" + data + "&issuer=2FaExample");
             $("#tokenValue").text(data);
