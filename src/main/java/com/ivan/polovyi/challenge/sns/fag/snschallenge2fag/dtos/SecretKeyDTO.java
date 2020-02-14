@@ -1,4 +1,4 @@
-package com.ivan.polovyi.challenge.sns.fag.snschallenge2fag;
+package com.ivan.polovyi.challenge.sns.fag.snschallenge2fag.dtos;
 
 public class SecretKeyDTO {
 

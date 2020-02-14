@@ -30,9 +30,9 @@ import java.util.TimeZone;
  * @author Johan Rydell, PortWise, Inc.
  */
 
-public class TOTP2 {
+public class TOTP {
 
-    private TOTP2() {}
+    private TOTP() {}
 
     /**
      * This method uses the JCE to provide the crypto algorithm.

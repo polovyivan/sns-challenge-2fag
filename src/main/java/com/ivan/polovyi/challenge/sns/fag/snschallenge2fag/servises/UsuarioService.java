@@ -3,6 +3,7 @@ package com.ivan.polovyi.challenge.sns.fag.snschallenge2fag.servises;
 import com.ivan.polovyi.challenge.sns.fag.snschallenge2fag.entities.Usuario;
 import org.apache.commons.codec.binary.Base32;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,7 +16,8 @@ public class UsuarioService {
     @Autowired
     SecretKeyService secretKeyService;
 
-    private static final int SECRET_SIZE =10;
+    @Value(("${sns.ivan.authentication.2fag.secret.key.length}"))
+    private int SECRET_SIZE;
 
     private List<Usuario> usuarios = new ArrayList<>();
 
@@ -36,11 +38,4 @@ public class UsuarioService {
     private String generateSecret() {
         return secretKeyService.generate(SECRET_SIZE);
     }
-
-//    public String encodeSecretKey(byte[] bytes) {
-//        // This Base32 encode may usually return a string with padding characters - '='.
-//        // QR generator which is user (zxing) does not recognize strings containing symbols other than alphanumeric
-//        // So just remove these redundant '=' padding symbols from resulting string
-//        return new Base32().encodeToString(bytes).replace("=", "");
-//    }
 }

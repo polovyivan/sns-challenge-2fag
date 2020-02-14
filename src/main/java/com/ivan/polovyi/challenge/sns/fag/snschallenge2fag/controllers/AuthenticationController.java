@@ -17,8 +17,8 @@ import java.util.Optional;
 @RequestMapping(value = "/authenticate/")
 public class AuthenticationController {
 
-    // @Value("${2fa.enabled}")
-    private boolean isTwoFaEnabled = true;
+    @Value(("${sns.ivan.authentication.2fag.enabled}"))
+    private boolean isTwoFaEnabled;
 
     @Autowired
     private UsuarioService usuarioService;
@@ -53,7 +53,7 @@ public class AuthenticationController {
             return AuthenticationStatus.FAILED;
         }
 
-        if (!secretKeyService.verifyCode(token, user.get().getSecret())) {
+        if (!secretKeyService.verify(token, user.get().getSecret())) {
             return AuthenticationStatus.FAILED;
         }
 
