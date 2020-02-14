@@ -18,7 +18,7 @@ import java.util.Optional;
 public class AuthenticationController {
 
     @Value(("${sns.ivan.authentication.2fag.enabled}"))
-    private boolean isTwoFaEnabled;
+    private boolean isTwoAuthEnabled;
 
     @Autowired
     private UsuarioService usuarioService;
@@ -34,13 +34,14 @@ public class AuthenticationController {
         if (!user.isPresent()) {
             return AuthenticationStatus.FAILED;
         }
-        if (!isTwoFaEnabled) {
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(login, password);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            return AuthenticationStatus.AUTHENTICATED;
-        } else {
+        if (isTwoAuthEnabled) {
             SecurityContextHolder.getContext().setAuthentication(null);
             return AuthenticationStatus.REQUIRE_TOKEN_CHECK;
+        } else {
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user.get().getLogin(), user.get().getPassword(), new ArrayList<>());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            return AuthenticationStatus.AUTHENTICATED;
+
         }
     }
 
