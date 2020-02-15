@@ -55,6 +55,7 @@ public class AuthenticationController {
         }
 
         if (!secretKeyService.verify(token, user.get().getSecret())) {
+
             return AuthenticationStatus.FAILED;
         }
 
