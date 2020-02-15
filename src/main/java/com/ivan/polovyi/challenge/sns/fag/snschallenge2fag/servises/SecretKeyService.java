@@ -19,6 +19,7 @@ public class SecretKeyService {
 
     @Value("${sns.ivan.authentication.2fag.code.update.duration}")
     private int codeUpdateDuration;
+
     @Value("${sns.ivan.authentication.2fag.code.length}")
     String returnDigits;
 
@@ -34,7 +35,7 @@ public class SecretKeyService {
         return new Base32().encodeToString(key.getBytes());
     }
 
-    private String generateTotpBySecret(String secret) {
+    String generateTotpBySecret(String secret) {
         // Getting current timestamp representing 30 seconds time frame
         long timeFrame = System.currentTimeMillis() / 1000L / codeUpdateDuration;
 
