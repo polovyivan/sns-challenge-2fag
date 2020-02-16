@@ -4,6 +4,7 @@ import com.ivan.polovyi.challenge.sns.fag.snschallenge2fag.entities.Usuario;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +12,13 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class UsuarioServiceTest {
 
     @Autowired
     private UsuarioService usuarioService;
 
-   static  private List<Usuario> usuarios = new ArrayList<>();
+    static private List<Usuario> usuarios = new ArrayList<>();
 
 
     @BeforeAll
@@ -34,15 +36,20 @@ class UsuarioServiceTest {
         Usuario usuarioCriado = usuarioService.criarUsuario("Ivan", "ivanSenha");
 
         assertEquals(usuarios.get(0).getLogin(), usuarioCriado.getLogin());
-        assertEquals(usuarios.get(0).getPassword(), usuarioCriado.getPassword());
+        assertEquals(usuarios.get(0).getSenha(), usuarioCriado.getSenha());
 
     }
 
     @Test
     void buscarUsuario() {
-//        Usuario usuario = usuarioService.buscarUsuario(usuarios.get(0).getLogin(), usuarios.get(0).getPassword()).get();
-//
-//        assertEquals(usuarios.get(0).getPassword(), usuario.getPassword());
-//        assertEquals(usuarios.get(0).getPassword(), usuario.getPassword());
+        Usuario usuarioExiste = usuarioService.buscarUsuario(usuarios.get(0).getLogin(), usuarios.get(0).getSenha()).get();
+
+        assertEquals(usuarios.get(0).getSenha(), usuarioExiste.getSenha());
+        assertEquals(usuarios.get(0).getSenha(), usuarioExiste.getSenha());
+
+        Optional<Usuario> usuarioNaoExiste = usuarioService.buscarUsuario("Nao existe", "Nao existe");
+
+        assertEquals(Optional.empty(), usuarioNaoExiste);
+
     }
 }

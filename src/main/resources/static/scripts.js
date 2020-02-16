@@ -26,7 +26,7 @@ $("#btnLogin").click(function () {
 });
 
 $("#btnRegister").click(function () {
-    $.post("/user/register/" + $("#login").val() + "/" + $("#password").val(), function (data, status) {
+    $.post("/usuario/cadastro/" + $("#login").val() + "/" + $("#password").val(), function (data, status) {
        if (status == 'success'&& data.length !== 0) {
             $("#tokenQr").attr("src", "https://zxing.org/w/chart?cht=qr&chs=250x250&chld=M&choe=UTF-8&chl="+ data.qrCodeUrl);
             $("#tokenValue").text(data.secretKey);

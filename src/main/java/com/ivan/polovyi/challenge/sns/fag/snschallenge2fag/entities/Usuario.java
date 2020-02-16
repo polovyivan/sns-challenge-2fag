@@ -3,13 +3,13 @@ package com.ivan.polovyi.challenge.sns.fag.snschallenge2fag.entities;
 public class Usuario {
 
     private String login;
-    private String password;
-    private String secret;
+    private String senha;
+    private String secretKey;
 
-    public Usuario(String login, String password, String secret) {
+    public Usuario(String login, String senha, String secretKey) {
         this.login = login;
-        this.password = password;
-        this.secret = secret;
+        this.senha = senha;
+        this.secretKey = secretKey;
     }
 
     public String getLogin() {
@@ -20,19 +20,19 @@ public class Usuario {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
-    public String getSecret() {
-        return secret;
+    public String getSecretKey() {
+        return secretKey;
     }
 
-    public void setSecret(String secret) {
-        this.secret = secret;
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
     }
 }
