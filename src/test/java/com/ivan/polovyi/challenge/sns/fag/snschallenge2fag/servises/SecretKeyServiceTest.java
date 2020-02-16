@@ -18,10 +18,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest(properties = {
-        "sns.ivan.authentication.2fag.secret.key.length=10",
-        "sns.ivan.authentication.2fag.code.update.duration = 30",
-        "sns.ivan.authentication.2fag.code.length= 6",
-        "sns.ivan.authentication.2fag.emissor = www.ivan-sensedia-challange.com.br"
+        "sns.ivan.authentication.2fag.secret-key.length=10",
+        "sns.ivan.authentication.2fag.token.duration=30",
+        "sns.ivan.authentication.2fag.token.length=6",
+        "sns.ivan.authentication.twofag.emissor = www.ivan-sensedia-challange.com.br"
 })
 class SecretKeyServiceTest {
 
@@ -29,13 +29,13 @@ class SecretKeyServiceTest {
     private SecretKeyService secretKeyService;
 
 
-    @Value("${sns.ivan.authentication.2fag.secret.key.length}")
+    @Value("${sns.ivan.authentication.2fag.secret-key.length}")
     private int SECRET_SIZE;
 
-    @Value("${sns.ivan.authentication.2fag.code.update.duration}")
+    @Value("${sns.ivan.authentication.2fag.token.duration}")
     private int TOKEN_DURATION;
 
-    @Value("${sns.ivan.authentication.2fag.emissor}")
+    @Value("${sns.ivan.authentication.twofag.emissor}")
     private String emissor;
 
 

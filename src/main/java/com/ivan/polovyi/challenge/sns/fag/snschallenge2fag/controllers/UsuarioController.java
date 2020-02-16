@@ -23,7 +23,7 @@ public class UsuarioController {
     @Autowired
     private SecretKeyService secretKeyService;
 
-    @Value(("${sns.ivan.authentication.2fag.enabled}"))
+    @Value("${sns.ivan.authentication.2fag.enabled}")
     private boolean isTwoAuthEnabled;
 
     @PostMapping(path = "/cadastro/{login}/{senha}")

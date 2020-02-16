@@ -20,7 +20,7 @@ public class UsuarioService {
     @Autowired
     SecretKeyService secretKeyService;
 
-    @Value(("${sns.ivan.authentication.2fag.secret.key.length}"))
+    @Value("${sns.ivan.authentication.2fag.secret-key.length}")
     private int SECRET_SIZE;
 
     private List<Usuario> usuarios = new ArrayList<>();
