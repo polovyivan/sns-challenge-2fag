@@ -17,7 +17,7 @@ import java.util.Optional;
 @RequestMapping(path = "/authenticate/")
 public class AuthenticationController {
 
-    @Value(("${sns.ivan.authentication.2fag.enabled}"))
+    @Value("${sns.ivan.authentication.2fag.enabled}")
     private boolean isTwoAuthEnabled;
 
     @Autowired

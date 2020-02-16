@@ -13,13 +13,14 @@ import java.net.URLEncoder;
 
 @Service
 public class SecretKeyService {
+
     @Value("${sns.ivan.authentication.2fag.emissor}")
     private String emissor;
 
-    @Value("${sns.ivan.authentication.2fag.code.update.duration}")
+    @Value("${sns.ivan.authentication.2fag.token.duration}")
     private int codeUpdateDuration;
 
-    @Value("${sns.ivan.authentication.2fag.code.length}")
+    @Value("${sns.ivan.authentication.2fag.token.length}")
     String returnDigits;
 
     public boolean verify(String totpCode, String secretKey) {
