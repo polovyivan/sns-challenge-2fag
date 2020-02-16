@@ -7,47 +7,47 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
           integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css"/>
 
-    <title>Register</title>
+    <title>Cadastro</title>
 </head>
 <body>
 <div class="custom-container container">
-    <h2 align="center">Register user</h2>
+    <h2 align="center">Cadastrar usuário</h2>
     <div class="form-group">
         <label for="login">Login</label>
-        <input id="login" type="text" class="form-control" placeholder="Enter login"/>
+        <input id="login" type="text" class="form-control" placeholder="Digite login"/>
     </div>
     <div class="form-group">
-        <label for="password">Password: </label>
-        <input id="password" type="password" class="form-control" placeholder="Enter password"/>
+        <label for="password">Senha: </label>
+        <input id="password" type="password" class="form-control" placeholder="Digite senha"/>
     </div>
-    <button id="btnRegister" type="button" class="btn btn-primary">Register</button>
-    <button id="btnCancelRegister" type="button" class="btn btn-outline-primary">Cancel</button>
+    <button id="btnRegister" type="button" class="btn btn-primary">Cadastrar</button>
+    <button id="btnCancelRegister" type="button" class="btn btn-outline-primary">Cancelar</button>
 </div>
 
 <div id="modalRegister" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Configure your token</h5>
+                <h5 class="modal-title">Configure seu token</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <p>
-                    To complete registration you should configure your token in Google Authenticator application. You
-                    will need this token further to be able to log in.
+                    Para concluir o registro, você deve configurar seu token no aplicativo Google Authenticator.
                 </p>
-                <p>Scan the QR-code diplayed below or enter token manually.</p>
+                <p>Leia o código QR exibido abaixo ou insira o token manualmente</p>
                 <div class="text-center">
                     <img id="tokenQr" src="" class="img-thumbnail"/>
                     <h3><span id="tokenValue"></span></h3>
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="btnRegisterDone" type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+                <button id="btnRegisterDone" type="button" class="btn btn-primary" data-dismiss="modal">Concluir
+                </button>
             </div>
         </div>
     </div>

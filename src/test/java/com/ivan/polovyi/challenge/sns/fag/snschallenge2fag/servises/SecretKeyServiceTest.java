@@ -33,26 +33,28 @@ class SecretKeyServiceTest {
     private int SECRET_SIZE;
 
     @Value("${sns.ivan.authentication.2fag.code.update.duration}")
-    private int codeUpdateDuration;
+    private int TOKEN_DURATION;
 
     @Value("${sns.ivan.authentication.2fag.emissor}")
     private String emissor;
 
 
     @Test
+    @DisplayName("Validar secredKey")
     void generate() {
-        String generated = secretKeyService.generate(SECRET_SIZE);
-        assertEquals(SECRET_SIZE, generated.length());
-        assertTrue(generated != null &&
-                generated.chars().allMatch(Character::isLetterOrDigit));
+        String secretKey = secretKeyService.generate(SECRET_SIZE);
+        assertEquals(SECRET_SIZE, secretKey.length());
+        assertTrue(secretKey != null &&
+                secretKey.chars().allMatch(Character::isLetterOrDigit));
     }
 
     @Test
+    @DisplayName("Validar codificação")
     void encode() {
         String generatedKey = secretKeyService.generate(SECRET_SIZE);
-        String encodedKey = secretKeyService.encode(generatedKey);
+        String encodedSecretKey = secretKeyService.encode(generatedKey);
 
-        assertDoesNotThrow(() -> new Base32().decode(encodedKey.getBytes()));
+        assertDoesNotThrow(() -> new Base32().decode(encodedSecretKey.getBytes()));
         assertThrows(
                 org.apache.commons.codec.DecoderException.class,
                 () -> new Base32().decode(111));
@@ -60,22 +62,24 @@ class SecretKeyServiceTest {
     }
 
     @Test
+    @DisplayName("QR code url validação")
     void getGoogleAuthenticatorBarCodeURL() {
-        String generatedKey = secretKeyService.generate(SECRET_SIZE);
-        String encodedKey = secretKeyService.encode(generatedKey);
+        String secretKey = secretKeyService.generate(SECRET_SIZE);
+        String encodedSecretKey = secretKeyService.encode(secretKey);
         String account = "account";
 
-        SecretKeyDTO googleAuthenticatorBarCodeURL = secretKeyService.getGoogleAuthenticatorBarCodeURL(encodedKey, account);
+        SecretKeyDTO googleAuthenticatorBarCodeURL =
+                secretKeyService.getGoogleAuthenticatorBarCodeURL(encodedSecretKey, account);
 
-        String secretKey = googleAuthenticatorBarCodeURL.getSecretKey();
-        String qrCodeUrl = googleAuthenticatorBarCodeURL.getQrCodeUrl();
+        String secretKeyDTO = googleAuthenticatorBarCodeURL.getSecretKey();
+        String qrCodeUrlDTO = googleAuthenticatorBarCodeURL.getQrCodeUrl();
 
-        assertEquals(encodedKey, secretKey);
+        assertEquals(encodedSecretKey, secretKeyDTO);
 
         String prefix = "otpauth://totp/";
-        assertTrue(qrCodeUrl.startsWith(prefix));
+        assertTrue(qrCodeUrlDTO.startsWith(prefix));
 
-        String withoutPrefix = qrCodeUrl.replace(prefix, "");
+        String withoutPrefix = qrCodeUrlDTO.replace(prefix, "");
         assertTrue(withoutPrefix.startsWith(emissor));
 
         String semEmissor = withoutPrefix.replace(emissor + "%3A", "");
@@ -84,22 +88,23 @@ class SecretKeyServiceTest {
         String senSecretPrefix = semEmissor.replace("?secret=", "");
         String semAccount = senSecretPrefix.replace(account, "");
 
-        assertTrue(semAccount.startsWith(encodedKey));
+        assertTrue(semAccount.startsWith(encodedSecretKey));
 
-        String semPrefixIssuer = semAccount.replace(secretKey + "&issuer=", "");
+        String semPrefixIssuer = semAccount.replace(secretKeyDTO + "&issuer=", "");
         assertTrue(semPrefixIssuer.equals(emissor));
 
     }
 
     @Test
-    @DisplayName("TOTR equality verification")
+    @DisplayName("TOTR -code validação")
     void verify() {
-        System.out.println("Test has begun... Can take a moment...");
+        //maior numero mais tempo vai demorar o teste
+        int testCycles = 30;
+        System.out.println("Teste começou... Pode levar  " + testCycles + " sec");
         String generatedKey = secretKeyService.generate(SECRET_SIZE);
         String encodedKey = secretKeyService.encode(generatedKey);
-        String generateTotpBySecret = secretKeyService.generateTotpBySecret(encodedKey);
         Set<Boolean> tokens = new HashSet<>();
-        int testCycles = 30;
+
         Thread thread = new Thread(() -> {
 
             for (int i = testCycles; i > 0; i--) {
@@ -114,6 +119,7 @@ class SecretKeyServiceTest {
         });
 
         thread.start();
+
         try {
             thread.join();
         } catch (InterruptedException e) {
